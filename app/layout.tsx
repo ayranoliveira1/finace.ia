@@ -3,6 +3,7 @@ import "./globals.css";
 import { Mulish } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { ptBR } from "@clerk/localizations";
 
 export const metadata: Metadata = {
    title: "Create Next App",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <html lang="en">
          <body className={`${mulish.className} antialiasedt dark`}>
             <ClerkProvider
+               localization={ptBR}
                appearance={{
                   baseTheme: dark,
                }}
