@@ -11,6 +11,7 @@ import {
 import { revalidatePath } from "next/cache";
 
 interface UpsertTransactionsArgs {
+   id?: string;
    name: string;
    amount: number;
    type: TransactionType;
@@ -27,8 +28,15 @@ export const upsertTransactions = async (data: UpsertTransactionsArgs) => {
       throw new Error("Unauthorized");
    }
 
-   await db.transaction.create({
-      data: {
+   await db.transaction.upsert({
+      where: {
+         id: data.id,
+      },
+      update: {
+         ...data,
+         userId,
+      },
+      create: {
          ...data,
          userId,
       },
