@@ -37,4 +37,5 @@ export const upsertTransactions = async (data: UpsertTransactionsArgs) => {
    });
 
    revalidatePath("/transactions");
+   revalidatePath("/");
 };

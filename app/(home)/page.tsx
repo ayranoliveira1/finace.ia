@@ -7,8 +7,8 @@ import { isMatch } from "date-fns";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data-acess/get-dashboard";
 import ExpensePerCategory from "./_components/expenses-per-category";
-import { getLastTransactions } from "../_data-acess/get-dashboard/get-last-transactions";
 import LastTransactions from "./_components/last-transactions";
+import { getLastTransactions } from "../_data-acess/get-last-transactions";
 
 interface HomePros {
    searchParams: {
@@ -31,7 +31,7 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
 
    const dashboard = await getDashboard(month);
 
-   const lastTransactions = await getLastTransactions(userId, month);
+   const lastTransactions = await getLastTransactions(month);
 
    return (
       <>
