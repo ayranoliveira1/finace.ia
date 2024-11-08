@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Header from "./_components/header";
 
 const Home = async () => {
    const { userId } = await auth();
@@ -10,9 +11,13 @@ const Home = async () => {
    }
 
    return (
-      <div className="flex w-screen items-center justify-center">
-         <UserButton showName />
-      </div>
+      <>
+         <Header />
+
+         <div className="flex w-screen items-center justify-center">
+            <UserButton showName />
+         </div>
+      </>
    );
 };
 

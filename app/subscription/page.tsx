@@ -1,5 +1,7 @@
+import Header from "../_components/header";
+
 const SubscriptionPage = () => {
-   return <div>subscription</div>;
+   return <Header />;
 };
 
 export default SubscriptionPage;
