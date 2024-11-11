@@ -40,6 +40,7 @@ import {
    DialogTitle,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
 
 const formSchema = z.object({
    name: z.string().trim().min(1, {
@@ -103,6 +104,12 @@ const UpsertTransactionDialog = ({
          console.log(error);
       }
    };
+
+   useEffect(() => {
+      if (defaultValues) {
+         form.reset(defaultValues);
+      }
+   }, [defaultValues, form]);
 
    const isUpdate = Boolean(transactionId);
 
