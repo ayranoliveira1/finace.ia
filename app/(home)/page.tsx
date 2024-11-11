@@ -5,11 +5,11 @@ import SummaryCards from "./_components/summary-cards";
 import TimeSelect from "./_components/time-select";
 import { isMatch } from "date-fns";
 import TransactionsPieChart from "./_components/transactions-pie-chart";
-import { getDashboard } from "../_data-acess/get-dashboard";
+import { getDashboard } from "../_data/get-dashboard";
 import ExpensePerCategory from "./_components/expenses-per-category";
 import LastTransactions from "./_components/last-transactions";
-import { getLastTransactions } from "../_data-acess/get-last-transactions";
-import { canUserAddTransactions } from "../_data-acess/can-user-add-transactions";
+import { getLastTransactions } from "../_data/get-last-transactions";
+import { canUserAddTransaction } from "../_data/can-user-add-transactions";
 import AiReportButton from "./_components/ai-report-button";
 
 interface HomePros {
@@ -35,7 +35,7 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
 
    const lastTransactions = await getLastTransactions(month);
 
-   const userCanAddTransaction = await canUserAddTransactions();
+   const userCanAddTransaction = await canUserAddTransaction();
 
    return (
       <>

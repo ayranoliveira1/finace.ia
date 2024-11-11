@@ -6,7 +6,7 @@ import { CheckIcon, XIcon } from "lucide-react";
 import AcquirePlanButton from "./_components/acquire-plan-button";
 import { Badge } from "../_components/ui/badge";
 import { revalidatePath } from "next/cache";
-import { getCurrentMonthTransactions } from "../_data-acess/get-current-month-transactions";
+import { getCurrentMonthTransactions } from "../_data/get-current-month-transactions";
 
 const SubscriptionPage = async () => {
    const { userId } = await auth();
