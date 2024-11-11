@@ -6,6 +6,7 @@ import { CheckIcon, XIcon } from "lucide-react";
 import AcquirePlanButton from "./_components/acquire-plan-button";
 import { Badge } from "../_components/ui/badge";
 import { revalidatePath } from "next/cache";
+import { getCurrentMonthTransactions } from "../_data-acess/get-current-month-transactions";
 
 const SubscriptionPage = async () => {
    const { userId } = await auth();
@@ -19,6 +20,9 @@ const SubscriptionPage = async () => {
    }
 
    const hashPriemiumPlan = user?.publicMetadata.subscriptionPlan === "premium";
+
+   const currentMonthTransactions = await getCurrentMonthTransactions();
+
    return (
       <>
          <Header />
@@ -28,6 +32,12 @@ const SubscriptionPage = async () => {
             <div className="flex gap-6">
                <Card className="w-[450px]">
                   <CardHeader className="relative border-b border-solid py-8">
+                     {!hashPriemiumPlan && (
+                        <Badge className="absolute left-4 top-12 bg-primary/10 text-primary">
+                           Ativo
+                        </Badge>
+                     )}
+
                      <h2 className="text-center text-2xl font-semibold">
                         Plano Básico
                      </h2>
@@ -44,7 +54,10 @@ const SubscriptionPage = async () => {
                   <CardContent className="space-y-6 py-8">
                      <div className="flex items-center gap-2">
                         <CheckIcon className="text-primary" />
-                        <p>Apenas 10 transações por mês (07/10)</p>
+                        <p>
+                           Apenas 10 transações por mês (
+                           {currentMonthTransactions}/10)
+                        </p>
                      </div>
 
                      <div className="flex items-center gap-2">

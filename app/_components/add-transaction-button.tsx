@@ -7,8 +7,16 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 
 import { useState } from "react";
 import UpsertTransactionDialog from "./upsert-transaction-dialog";
+import { Tooltip, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { TooltipContent } from "@radix-ui/react-tooltip";
 
-const AddTransactionButton = () => {
+interface AddTransactionButtonProps {
+   userCanAddTransaction?: boolean;
+}
+
+const AddTransactionButton = ({
+   userCanAddTransaction,
+}: AddTransactionButtonProps) => {
    const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
    return (
@@ -18,12 +26,26 @@ const AddTransactionButton = () => {
             setDialogIsOpen(open);
          }}
       >
-         <DialogTrigger asChild>
-            <Button className="rounded-full font-bold">
-               Adicionar transações
-               <ArrowDownUpIcon />
-            </Button>
-         </DialogTrigger>
+         <TooltipProvider>
+            <Tooltip>
+               <TooltipTrigger asChild>
+                  <DialogTrigger asChild>
+                     <Button
+                        disabled={!userCanAddTransaction}
+                        className="rounded-full font-bold"
+                     >
+                        Adicionar transações
+                        <ArrowDownUpIcon />
+                     </Button>
+                  </DialogTrigger>
+               </TooltipTrigger>
+
+               <TooltipContent>
+                  {!userCanAddTransaction &&
+                     "Você já atingiu o limite de transações para este mês."}
+               </TooltipContent>
+            </Tooltip>
+         </TooltipProvider>
 
          <UpsertTransactionDialog setDialogIsOpen={setDialogIsOpen} />
       </Dialog>

@@ -9,6 +9,7 @@ import { getDashboard } from "../_data-acess/get-dashboard";
 import ExpensePerCategory from "./_components/expenses-per-category";
 import LastTransactions from "./_components/last-transactions";
 import { getLastTransactions } from "../_data-acess/get-last-transactions";
+import { canUserAddTransactions } from "../_data-acess/can-user-add-transactions";
 
 interface HomePros {
    searchParams: {
@@ -33,6 +34,8 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
 
    const lastTransactions = await getLastTransactions(month);
 
+   const userCanAddTransaction = await canUserAddTransactions();
+
    return (
       <>
          <Header />
@@ -46,7 +49,10 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
 
             <div className="grid grid-cols-[2fr,1fr] gap-6 overflow-hidden">
                <div className="flex flex-col gap-6 overflow-hidden">
-                  <SummaryCards {...dashboard} />
+                  <SummaryCards
+                     userCanAddTransaction={userCanAddTransaction}
+                     {...dashboard}
+                  />
 
                   <div className="grid grid-cols-3 grid-rows-1 gap-6 overflow-hidden">
                      <TransactionsPieChart {...dashboard} />

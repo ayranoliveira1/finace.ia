@@ -36,6 +36,7 @@ export const upsertTransactions = async (data: UpsertTransactionsArgs) => {
       create: { ...data, userId },
    });
 
-   revalidatePath("/transactions");
    revalidatePath("/");
+   revalidatePath("/transactions");
+   revalidatePath("/subscription");
 };
