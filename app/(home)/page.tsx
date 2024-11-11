@@ -10,6 +10,7 @@ import ExpensePerCategory from "./_components/expenses-per-category";
 import LastTransactions from "./_components/last-transactions";
 import { getLastTransactions } from "../_data-acess/get-last-transactions";
 import { canUserAddTransactions } from "../_data-acess/can-user-add-transactions";
+import AiReportButton from "./_components/ai-report-button";
 
 interface HomePros {
    searchParams: {
@@ -44,7 +45,10 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
             <div className="flex items-center justify-between">
                <h1 className="text-2xl font-bold">Dashboard</h1>
 
-               <TimeSelect />
+               <div className="flex items-center gap-5">
+                  <AiReportButton month={month} />
+                  <TimeSelect />
+               </div>
             </div>
 
             <div className="grid grid-cols-[2fr,1fr] gap-6 overflow-hidden">
