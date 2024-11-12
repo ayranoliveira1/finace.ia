@@ -13,12 +13,13 @@ export const generateAiReport = async ({ month }: GenerateAiReportType) => {
       throw new Error("Unauthorized");
    }
 
-   const user = await clerkClient().users.getUser(userId);
+   const user = (await clerkClient()).users.getUser(userId);
    if (!user) {
       throw new Error("User not found");
    }
 
-   const hashPrimiumPlan = user.publicMetadata.subscriptionPlan === "premium";
+   const hashPrimiumPlan =
+      (await user).publicMetadata.subscriptionPlan === "premium";
    if (!hashPrimiumPlan) {
       throw new Error("You need to be a premium user to generate AI reports");
    }
