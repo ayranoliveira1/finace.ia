@@ -16,12 +16,14 @@ import { generateAiReport } from "../_actions/generate-ai-report";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import Markdown from "react-markdown";
 import { useState } from "react";
+import Link from "next/link";
 
 interface AiReportButtonProps {
    month: string;
+   hasPremiumPlan: boolean;
 }
 
-const AiReportButton = ({ month }: AiReportButtonProps) => {
+const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
    const [report, setReport] = useState<string | null>(null);
    const [reportIsLoading, setReportIsLoading] = useState<boolean>(false);
 
@@ -47,33 +49,61 @@ const AiReportButton = ({ month }: AiReportButtonProps) => {
          </DialogTrigger>
 
          <DialogContent className="max-w-[600px] overflow-hidden">
-            <DialogHeader>
-               <DialogTitle>Relatório IA</DialogTitle>
-               <DialogDescription>
-                  Use inteligência artificial para gerar um relatório com
-                  insights sobre suas finanças.
-               </DialogDescription>
-            </DialogHeader>
+            {hasPremiumPlan ? (
+               <>
+                  <DialogHeader>
+                     <DialogTitle>Relatório IA</DialogTitle>
+                     <DialogDescription>
+                        Use inteligência artificial para gerar um relatório com
+                        insights sobre suas finanças.
+                     </DialogDescription>
+                  </DialogHeader>
 
-            <ScrollArea className="prose max-h-[450px] text-white prose-h3:text-white prose-h4:text-white prose-strong:text-white">
-               <Markdown>{report}</Markdown>
-            </ScrollArea>
+                  <ScrollArea className="prose max-h-[450px] text-white prose-h3:text-white prose-h4:text-white prose-strong:text-white">
+                     <Markdown>{report}</Markdown>
+                  </ScrollArea>
 
-            <DialogFooter>
-               <DialogClose asChild>
-                  <Button variant="ghost">Cancelar</Button>
-               </DialogClose>
+                  <DialogFooter>
+                     <DialogClose asChild>
+                        <Button variant="ghost">Cancelar</Button>
+                     </DialogClose>
 
-               <Button
-                  onClick={handleGenerateReportClick}
-                  disabled={reportIsLoading}
-               >
-                  {reportIsLoading && (
-                     <LoaderCircleIcon className="animate-spin" />
-                  )}
-                  {reportIsLoading ? `Gerando Relatório` : "Gerar relatório"}
-               </Button>
-            </DialogFooter>
+                     <Button
+                        onClick={handleGenerateReportClick}
+                        disabled={reportIsLoading}
+                     >
+                        {reportIsLoading && (
+                           <LoaderCircleIcon className="animate-spin" />
+                        )}
+                        {reportIsLoading
+                           ? `Gerando Relatório`
+                           : "Gerar relatório"}
+                     </Button>
+                  </DialogFooter>
+               </>
+            ) : (
+               <>
+                  <DialogHeader>
+                     <DialogTitle>Relatório IA</DialogTitle>
+                     <DialogDescription>
+                        Você precisa de um plano Premium para gerar relatórios
+                        com IAA.
+                     </DialogDescription>
+                  </DialogHeader>
+
+                  <DialogFooter>
+                     <DialogClose asChild>
+                        <Button variant="ghost">Cancelar</Button>
+                     </DialogClose>
+
+                     <Button>
+                        <Link href={"/subscription"}>
+                           Assinar plano Premium
+                        </Link>
+                     </Button>
+                  </DialogFooter>
+               </>
+            )}
          </DialogContent>
       </Dialog>
    );
