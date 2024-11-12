@@ -35,6 +35,7 @@ const EditTransactionButton = ({ transaction }: EditTransactionButtonProps) => {
             defaultValues={{
                ...transaction,
                amount: Number(transaction.amount),
+               date: new Date(transaction.date),
             }}
             transactionId={transaction.id}
          />
