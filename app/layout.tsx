@@ -3,6 +3,7 @@ import "./globals.css";
 import { Mulish } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
    title: "Create Next App",
@@ -28,6 +29,8 @@ export default function RootLayout({
             <body className={`${mulish.className} antialiasedt dark`}>
                <div className="flex h-full flex-col overflow-hidden">
                   {children}
+
+                  <Toaster />
                </div>
             </body>
          </html>

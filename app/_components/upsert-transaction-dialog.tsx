@@ -41,6 +41,7 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
    name: z.string().trim().min(1, {
@@ -100,7 +101,9 @@ const UpsertTransactionDialog = ({
          });
          setDialogIsOpen(false);
          form.reset();
+         toast.success("Transação salva com sucesso!");
       } catch (error) {
+         toast.error("Erro ao salvar transação");
          console.log(error);
       }
    };
