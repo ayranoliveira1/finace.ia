@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -44,8 +44,9 @@ const Header = () => {
                Assinaturas
             </Link>
          </div>
-
-         <UserButton showName />
+         <SignedIn>
+            <UserButton showName />
+         </SignedIn>
       </header>
    );
 };

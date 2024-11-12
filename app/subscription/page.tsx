@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader } from "../_components/ui/card";
 import { CheckIcon, XIcon } from "lucide-react";
 import AcquirePlanButton from "./_components/acquire-plan-button";
 import { Badge } from "../_components/ui/badge";
-import { revalidatePath } from "next/cache";
 import { getCurrentMonthTransactions } from "../_data/get-current-month-transactions";
 
 const SubscriptionPage = async () => {
@@ -14,13 +13,9 @@ const SubscriptionPage = async () => {
       redirect("/login");
    }
 
-   const user = (await clerkClient()).users.getUser(userId);
-   if (!user) {
-      revalidatePath("/subscription");
-   }
+   const user = await clerkClient().users.getUser(userId);
 
-   const hashPriemiumPlan =
-      (await user).publicMetadata.subscriptionPlan === "premium";
+   const hashPriemiumPlan = user.publicMetadata.subscriptionPlan === "premium";
 
    const currentMonthTransactions = await getCurrentMonthTransactions();
 
