@@ -27,6 +27,10 @@ const AcquirePlanButton = () => {
       await stripe.redirectToCheckout({ sessionId });
    };
 
+   if (!user) {
+      console.error("User not found");
+   }
+
    const hashPriemiumPlan = user?.publicMetadata.subscriptionPlan === "premium";
 
    if (hashPriemiumPlan) {
