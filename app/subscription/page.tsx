@@ -13,9 +13,10 @@ const SubscriptionPage = async () => {
       redirect("/login");
    }
 
-   const user = await clerkClient().users.getUser(userId);
+   const user = (await clerkClient()).users.getUser(userId);
 
-   const hashPriemiumPlan = user.publicMetadata.subscriptionPlan === "premium";
+   const hashPriemiumPlan =
+      (await user).publicMetadata.subscriptionPlan === "premium";
 
    const currentMonthTransactions = await getCurrentMonthTransactions();
 

@@ -4,7 +4,7 @@ import { TotalExpensePerCategory, TransactionPercentagePerType } from "./type";
 import { auth } from "@clerk/nextjs/server";
 
 export const getDashboard = async (month: string) => {
-   const { userId } = auth();
+   const { userId } = await auth();
    if (!userId) {
       throw new Error("Unauthorized");
    }

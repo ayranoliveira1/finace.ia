@@ -37,7 +37,7 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
 
    const userCanAddTransaction = await canUserAddTransaction();
 
-   const user = await clerkClient().users.getUser(userId);
+   const user = (await clerkClient()).users.getUser(userId);
 
    return (
       <>
@@ -50,7 +50,7 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
                <div className="flex items-center gap-5">
                   <AiReportButton
                      hasPremiumPlan={
-                        (await user.publicMetadata.subscriptionPlan) ===
+                        (await user).publicMetadata.subscriptionPlan ===
                         "premium"
                      }
                      month={month}
