@@ -27,10 +27,6 @@ const AcquirePlanButton = () => {
       await stripe.redirectToCheckout({ sessionId });
    };
 
-   if (!user) {
-      console.error("User not found");
-   }
-
    const hashPriemiumPlan = user?.publicMetadata.subscriptionPlan === "premium";
 
    if (hashPriemiumPlan) {
@@ -41,7 +37,7 @@ const AcquirePlanButton = () => {
             variant="link"
          >
             <Link
-               href={`${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL as string}?prefilled_email=${user.emailAddresses[0]}`}
+               href={`${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL as string}?prefilled_email=${user.emailAddresses[0].emailAddress}`}
             >
                Gerenciar Plano
             </Link>
