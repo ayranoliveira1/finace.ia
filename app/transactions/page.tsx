@@ -29,7 +29,7 @@ const TransactionsPage = async () => {
       <>
          <Header />
 
-         <div className="space-y-4 overflow-hidden p-6">
+         <div className="flex flex-col space-y-4 overflow-hidden p-6">
             <div className="flex w-full items-center justify-between">
                <h1 className="text-2xl font-bold">Transações</h1>
 
@@ -38,7 +38,7 @@ const TransactionsPage = async () => {
                />
             </div>
 
-            <ScrollArea>
+            <ScrollArea className="h-full">
                <DataTable
                   columns={transactionColumns}
                   data={JSON.parse(JSON.stringify(transactions))}
