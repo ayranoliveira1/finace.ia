@@ -42,6 +42,7 @@ import {
 import { Button } from "./ui/button";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { LoaderCircleIcon } from "lucide-react";
 
 const formSchema = z.object({
    name: z.string().trim().min(1, {
@@ -92,6 +93,8 @@ const UpsertTransactionDialog = ({
          type: TransactionType.INVESTMENT,
       },
    });
+
+   const { isSubmitting } = form.formState;
 
    const onSubmit = async (data: FormSchemaType) => {
       try {
@@ -282,9 +285,16 @@ const UpsertTransactionDialog = ({
                      </Button>
                   </DialogClose>
 
-                  <Button type="submit">
-                     {isUpdate ? "Atualizar" : "Adicionar"}
-                  </Button>
+                  {isSubmitting ? (
+                     <Button type="submit" disabled>
+                        <LoaderCircleIcon className="animate-spin" />
+                        {isUpdate ? "Atualizando" : "Adicionando"}
+                     </Button>
+                  ) : (
+                     <Button type="submit">
+                        {isUpdate ? "Atualizar" : "Adicionar"}
+                     </Button>
+                  )}
                </DialogFooter>
             </form>
          </Form>

@@ -1,7 +1,8 @@
+"use client";
+
 import { deleteTransaction } from "@/app/_actions/delete-transaction";
 import {
    AlertDialog,
-   AlertDialogAction,
    AlertDialogCancel,
    AlertDialogContent,
    AlertDialogDescription,
@@ -11,7 +12,8 @@ import {
    AlertDialogTrigger,
 } from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
-import { TrashIcon } from "lucide-react";
+import { LoaderCircleIcon, TrashIcon } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface DeleteTransactionButtonProps {
@@ -21,18 +23,25 @@ interface DeleteTransactionButtonProps {
 const DeleteTransactionButton = ({
    transactionId,
 }: DeleteTransactionButtonProps) => {
+   const [isLoading, setIsLoading] = useState<boolean>(false);
+   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+
    const handleDeleteTransaction = async () => {
       try {
+         setIsLoading(true);
          await deleteTransaction({ id: transactionId });
          toast.success("Transação deletada com sucesso!");
       } catch (error) {
          toast.error("Erro ao deletar transação!");
          console.error(error);
+      } finally {
+         setIsLoading(false);
+         setIsAlertOpen(false);
       }
    };
 
    return (
-      <AlertDialog>
+      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
          <AlertDialogTrigger asChild>
             <Button
                variant="ghost"
@@ -57,12 +66,14 @@ const DeleteTransactionButton = ({
             <AlertDialogFooter>
                <AlertDialogCancel>Cancela</AlertDialogCancel>
 
-               <AlertDialogAction
+               <Button
+                  disabled={isLoading}
                   onClick={handleDeleteTransaction}
                   className="bg-red-500 hover:bg-red-600"
                >
-                  Deletar
-               </AlertDialogAction>
+                  {isLoading && <LoaderCircleIcon className="animate-spin" />}
+                  {isLoading ? "Deletando" : "Deletar"}
+               </Button>
             </AlertDialogFooter>
          </AlertDialogContent>
       </AlertDialog>
