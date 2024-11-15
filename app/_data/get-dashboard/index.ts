@@ -3,7 +3,12 @@ import { TransactionType } from "@prisma/client";
 import { TotalExpensePerCategory, TransactionPercentagePerType } from "./type";
 import { auth } from "@clerk/nextjs/server";
 
-export const getDashboard = async (month: string) => {
+interface GetDashboardProps {
+   month: string;
+   year: string;
+}
+
+export const getDashboard = async ({ month, year }: GetDashboardProps) => {
    const { userId } = await auth();
    if (!userId) {
       throw new Error("Unauthorized");
@@ -12,8 +17,8 @@ export const getDashboard = async (month: string) => {
    const where = {
       userId,
       date: {
-         gte: new Date(`2024-${month}-01`),
-         lt: new Date(`2024-${month}-31`),
+         gte: new Date(`${year}-${month}-01`),
+         lt: new Date(`${year}-${month}-31`),
       },
    };
 

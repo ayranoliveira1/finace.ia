@@ -2,16 +2,20 @@ import { Button } from "@/app/_components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import { TRANSACTION_PAYMENT_METHOD_ICONS } from "@/app/_constants/transactions";
+import { getLastTransactions } from "@/app/_data/get-last-transactions";
 import { formatCurrency } from "@/app/_helpers/currency";
 import { Transaction, TransactionType } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 interface LastTransactionsProps {
-   lasTransactions: Transaction[];
+   month: string;
+   year: string;
 }
 
-const LastTransactions = ({ lasTransactions }: LastTransactionsProps) => {
+const LastTransactions = async ({ month, year }: LastTransactionsProps) => {
+   const lastTransactions = await getLastTransactions({ month, year });
+
    const getAmountColor = (transaction: Transaction) => {
       if (transaction.type === TransactionType.DEPOSIT) {
          return "text-green-500";
@@ -45,7 +49,7 @@ const LastTransactions = ({ lasTransactions }: LastTransactionsProps) => {
          <div className="mx-6 mb-5 h-[1px] bg-white bg-opacity-10"></div>
 
          <CardContent className="space-y-6">
-            {lasTransactions.map((transaction) => (
+            {lastTransactions.map((transaction) => (
                <div
                   className="flex items-center justify-between"
                   key={transaction.id}
