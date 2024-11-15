@@ -5,8 +5,11 @@ import { db } from "@/app/_lib/prisma";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { generateAiReportSchema, GenerateAiReportType } from "./sxhema";
 
-export const generateAiReport = async ({ month }: GenerateAiReportType) => {
-   generateAiReportSchema.parse({ month });
+export const generateAiReport = async ({
+   year,
+   month,
+}: GenerateAiReportType) => {
+   generateAiReportSchema.parse({ month, year });
 
    const { userId } = await auth();
    if (!userId) {
@@ -32,8 +35,8 @@ export const generateAiReport = async ({ month }: GenerateAiReportType) => {
       where: {
          userId,
          date: {
-            gte: new Date(`2024-${month}-01`),
-            lt: new Date(`2024-${month}-31`),
+            gte: new Date(`${year}-${month}-01`),
+            lt: new Date(`${year}-${month}-31`),
          },
       },
    });

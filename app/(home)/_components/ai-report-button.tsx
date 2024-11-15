@@ -19,18 +19,23 @@ import { useState } from "react";
 import Link from "next/link";
 
 interface AiReportButtonProps {
+   year: string;
    month: string;
    hasPremiumPlan: boolean;
 }
 
-const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
+const AiReportButton = ({
+   year,
+   month,
+   hasPremiumPlan,
+}: AiReportButtonProps) => {
    const [report, setReport] = useState<string | null>(null);
    const [reportIsLoading, setReportIsLoading] = useState<boolean>(false);
 
    const handleGenerateReportClick = async () => {
       try {
          setReportIsLoading(true);
-         const aiReport = await generateAiReport({ month });
+         const aiReport = await generateAiReport({ year, month });
          setReport(aiReport);
       } catch (error) {
          console.log(error);

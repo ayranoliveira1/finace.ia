@@ -8,32 +8,35 @@ import TransactionsPieChart from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data/get-dashboard";
 import ExpensePerCategory from "./_components/expenses-per-category";
 import LastTransactions from "./_components/last-transactions";
-import { getLastTransactions } from "../_data/get-last-transactions";
 import { canUserAddTransaction } from "../_data/can-user-add-transactions";
 import AiReportButton from "./_components/ai-report-button";
+import { Suspense } from "react";
+import LastTransactionSkeleton from "./_components/skeleton/last-tranasaction-skeleton";
 
 interface HomePros {
    searchParams: {
+      year: string;
       month: string;
    };
 }
 
-const Home = async ({ searchParams: { month } }: HomePros) => {
+const Home = async ({ searchParams: { year, month } }: HomePros) => {
    const { userId } = await auth();
 
    if (!userId) {
       redirect("/login");
    }
 
+   const yearIsValid = !year || !isMatch(year, "yyyy");
    const monthIsValid = !month || !isMatch(month, "MM");
 
-   if (monthIsValid) {
-      redirect(`/?month=${new Date().getMonth() + 1}`);
+   if (yearIsValid && monthIsValid) {
+      redirect(
+         `/?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`,
+      );
    }
 
-   const dashboard = await getDashboard(month);
-
-   const lastTransactions = await getLastTransactions(month);
+   const dashboard = await getDashboard({ month, year });
 
    const userCanAddTransaction = await canUserAddTransaction();
 
@@ -53,6 +56,7 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
                         (await user).publicMetadata.subscriptionPlan ===
                         "premium"
                      }
+                     year={year}
                      month={month}
                   />
                   <TimeSelect />
@@ -75,7 +79,9 @@ const Home = async ({ searchParams: { month } }: HomePros) => {
                   </div>
                </div>
 
-               <LastTransactions lasTransactions={lastTransactions} />
+               <Suspense fallback={<LastTransactionSkeleton />}>
+                  <LastTransactions month={month} year={year} />
+               </Suspense>
             </div>
          </div>
       </>

@@ -1,7 +1,15 @@
 import { db } from "@/app/_lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export const getLastTransactions = async (month: string) => {
+interface GetLastTransactionsProps {
+   month: string;
+   year: string;
+}
+
+export const getLastTransactions = async ({
+   month,
+   year,
+}: GetLastTransactionsProps) => {
    const { userId } = await auth();
    if (!userId) {
       throw new Error("Unauthorized");
@@ -10,8 +18,8 @@ export const getLastTransactions = async (month: string) => {
    const where = {
       userId,
       date: {
-         gte: new Date(`2024-${month}-01`),
-         lt: new Date(`2024-${month}-31`),
+         gte: new Date(`${year}-${month}-01`),
+         lt: new Date(`${year}-${month}-31`),
       },
    };
 
