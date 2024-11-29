@@ -1,6 +1,7 @@
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import NavHeader from "./nav-header";
+import MenuHeader from "./menu-header";
 
 const Header = () => {
    return (
@@ -11,9 +12,13 @@ const Header = () => {
             <NavHeader />
          </div>
 
-         <SignedIn>
-            <UserButton showName />
-         </SignedIn>
+         <div className="hidden lg:flex">
+            <SignedIn>
+               <UserButton showName />
+            </SignedIn>
+         </div>
+
+         <MenuHeader />
       </header>
    );
 };
