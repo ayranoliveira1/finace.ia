@@ -7,7 +7,7 @@ const NavHeader = () => {
    const pathname = usePathname();
 
    return (
-      <>
+      <div className="hidden items-center gap-10 lg:flex">
          <Link
             href="/"
             className={`font-bold hover:text-primary ${
@@ -38,7 +38,7 @@ const NavHeader = () => {
          >
             Assinaturas
          </Link>
-      </>
+      </div>
    );
 };
 
