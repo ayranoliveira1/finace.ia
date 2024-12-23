@@ -26,8 +26,8 @@ const SubscriptionPage = async () => {
          <div className="space-y-6 p-6">
             <h1 className="text-2xl font-bold">Assinaturas</h1>
 
-            <div className="flex gap-6">
-               <Card className="w-[450px]">
+            <div className="flex flex-col gap-6 lg:flex-row">
+               <Card className="max-w-[450px] lg:min-w-[450px]">
                   <CardHeader className="relative border-b border-solid py-8">
                      {!hashPriemiumPlan && (
                         <Badge className="absolute left-4 top-12 bg-primary/10 text-primary">
@@ -64,7 +64,7 @@ const SubscriptionPage = async () => {
                   </CardContent>
                </Card>
 
-               <Card className="w-[450px]">
+               <Card className="max-w-[450px] lg:min-w-[450px]">
                   <CardHeader className="relative border-b border-solid py-8">
                      {hashPriemiumPlan && (
                         <Badge className="absolute left-4 top-12 bg-primary/10 text-primary">

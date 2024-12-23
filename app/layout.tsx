@@ -26,8 +26,8 @@ export default function RootLayout({
          }}
       >
          <html lang="en">
-            <body className={`${mulish.className} antialiasedt dark`}>
-               <div className="flex h-full flex-col overflow-hidden">
+            <body className={`${mulish.className} dark antialiased`}>
+               <div className="flex h-full flex-col lg:overflow-hidden">
                   {children}
 
                   <Toaster />
