@@ -10,7 +10,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 
 const MONTH_OPTIONS = [
-   { value: "01", label: "January" },
+   { value: "1", label: "January" },
    { value: "02", label: "February" },
    { value: "03", label: "March" },
    { value: "04", label: "April" },
@@ -24,7 +24,7 @@ const MONTH_OPTIONS = [
    { value: "12", label: "December" },
 ];
 
-const YEAR_OPTIONS = [{ value: "2024", label: "2024" }];
+const YEAR_OPTIONS = [{ value: "2025", label: "2025" }];
 
 const TimeSelect = () => {
    const { push } = useRouter();

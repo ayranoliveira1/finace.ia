@@ -15,8 +15,8 @@ import LastTransactionSkeleton from "./_components/skeleton/last-tranasaction-sk
 
 interface HomePros {
    searchParams: {
-      year: string;
       month: string;
+      year: string;
    };
 }
 
@@ -32,7 +32,7 @@ const Home = async ({ searchParams: { year, month } }: HomePros) => {
 
    if (yearIsValid && monthIsValid) {
       redirect(
-         `/?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`,
+         `/?month=${new Date().getMonth() + 1}&year=${new Date().getFullYear()}`,
       );
    }
 
