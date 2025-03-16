@@ -77,6 +77,7 @@ interface UpsertTransactionDialogProps {
    transactionId?: string;
 }
 
+// Componente de diálogo para adicionar ou atualizar transações
 const UpsertTransactionDialog = ({
    setDialogIsOpen,
    defaultValues,
@@ -96,6 +97,7 @@ const UpsertTransactionDialog = ({
 
    const { isSubmitting } = form.formState;
 
+   // Função para enviar os dados do formulário
    const onSubmit = async (data: FormSchemaType) => {
       try {
          await upsertTransactions({
