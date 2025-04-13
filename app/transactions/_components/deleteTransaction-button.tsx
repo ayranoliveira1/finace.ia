@@ -26,6 +26,10 @@ const DeleteTransactionButton = ({
    const [isLoading, setIsLoading] = useState<boolean>(false);
    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
 
+   // Function to handle the deletion of a transaction
+   // It sets the loading state, calls the deleteTransaction function,
+   // and handles success and error cases
+   // Finally, it resets the loading state and closes the alert dialog
    const handleDeleteTransaction = async () => {
       try {
          setIsLoading(true);
