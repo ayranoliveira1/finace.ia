@@ -6,7 +6,9 @@ interface TransactionTypeBadgeProps {
    transaction: Transaction;
 }
 
+// This component renders a badge indicating the type of transaction
 const TransactionTypeBadge = ({ transaction }: TransactionTypeBadgeProps) => {
+   // Check the type of transaction and render the corresponding badge
    if (transaction.type === TransactionType.DEPOSIT) {
       return (
          <Badge className="gap-2 bg-muted font-bold text-primary hover:bg-muted">
@@ -15,6 +17,7 @@ const TransactionTypeBadge = ({ transaction }: TransactionTypeBadgeProps) => {
          </Badge>
       );
    }
+   // Check if the transaction is a transfer
    if (transaction.type === TransactionType.EXPENSE) {
       return (
          <Badge className="gap-2 bg-danger bg-opacity-10 font-bold text-danger hover:bg-danger hover:bg-opacity-10">
